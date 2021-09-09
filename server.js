@@ -53,7 +53,7 @@ app.get('/api/:date_string', function (req, res) {
 
     res.json({
       unix: Date.parse(Date),
-      utc: DATE,
+      utc: date,
     });
   } else {
     let current = new Date();
