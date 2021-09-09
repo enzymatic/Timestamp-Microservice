@@ -45,9 +45,9 @@ app.get('/api/:date_string', function (req, res) {
     if (!date_string.includes('-')) {
       date_string *= 1;
     }
-    const sendDate = new Date(date_string).toUTCString();
+    const date = new Date(date_string).toUTCString();
 
-    if (sendDate == 'Invalid Date') {
+    if (date == 'Invalid Date') {
       res.json({ error: 'Invalid Date' });
     }
 
