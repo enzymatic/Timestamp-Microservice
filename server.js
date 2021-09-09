@@ -23,15 +23,27 @@ app.get('/api/hello', function (req, res) {
   res.json({ greeting: 'hello API' });
 });
 
-app.get('/api/2015-12-25', function (req, res) {
-  res.json({ unix: 1451001600000, utc: 'Fri, 25 Dec 2015 00:00:00 GMT' });
-});
+app.get('/api/:date', function (req, res) {
+  let { date } = req.params;
 
-app.get('/api/1451001600000', function (req, res) {
-  res.json({ unix: 1451001600000, utc: 'Fri, 25 Dec 2015 00:00:00 GMT' });
+  if (!date.includes('-')) {
+    date *= 1;
+  }
+
+  const sendDate = new Date(date).toUTCString();
+
+  if (sendDate == 'Invalid Date') {
+    res.json({ error: 'Invalid Date' });
+  }
+
+  res.json({
+    unix: Date.parse(sendDate),
+    utc: sendDate,
+  });
 });
 
 // listen for requests :)
+
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
