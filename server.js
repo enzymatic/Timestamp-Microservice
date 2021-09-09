@@ -45,7 +45,7 @@ app.get('/api/:date_string', function (req, res) {
     // const { date_string = '' } = req.params;
     const VALID = date_string * 1;
     const DATE = Number.isNaN(VALID) ? getDate(date_string) : getDate(VALID);
-    res.json(DATE);
+    res.json({DATE});
 
     // if (!date_string.includes('-')) {
     //   date_string *= 1;
