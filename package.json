@@ -12,7 +12,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://githost.com/camper/repo.git"
+		"url": "https://github.com/enzymatic/Timestamp-Microservice.git"
 	},
 	"keywords": [
 		"node",
