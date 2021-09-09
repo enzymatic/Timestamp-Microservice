@@ -23,7 +23,7 @@ app.get('/api/hello', function (req, res) {
   res.json({ greeting: 'hello API' });
 });
 
-app.get('/api/timestamp/:date_string?', (request, response) => {
+app.get('/api/:date_string?', (request, response) => {
   const { date_string = '' } = request.params;
   if (date_string) {
     const VALID = date_string * 1;
