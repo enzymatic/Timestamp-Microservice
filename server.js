@@ -57,16 +57,16 @@ app.get('/api/:date_string', function (req, res) {
     });
   } else {
     let current = new Date();
-    // let currentTime =
-    //   current.getHours() +
-    //   ':' +
-    //   current.getMinutes() +
-    //   ':' +
-    //   current.getSeconds();
+    let currentTime =
+      current.getHours() +
+      ':' +
+      current.getMinutes() +
+      ':' +
+      current.getSeconds();
 
     res.json({
-      unix: current.getTime(),
-      utc: current,
+      unix: currentTime,
+      utc: currentTime,
     });
   }
 });
