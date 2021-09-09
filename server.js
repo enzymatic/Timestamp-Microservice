@@ -34,7 +34,7 @@ app.get('/api/:date_string?', (request, response) => {
   } else {
     const { originalUrl } = request;
     const { unix } = getDate();
-    response.redirect(301, `${originalUrl}/${unix}`);
+    // response.redirect(301, `${originalUrl}/${unix}`);
   }
 });
 
