@@ -24,21 +24,6 @@ app.get('/api/hello', function (req, res) {
   res.json({ greeting: 'hello API' });
 });
 
-// app.get('/api/:date_string?', (request, response) => {
-//   const { date_string = '' } = request.params;
-//   if (date_string) {
-//     const VALID = date_string * 1;
-//     const DATE = Number.isNaN(VALID) ? getDate(date_string) : getDate(VALID);
-//     response.status(200);
-//     console.log(DATE);
-//     response.json(DATE);
-//   } else {
-//     const { originalUrl } = request;
-//     const { unix } = getDate();
-//     response.redirect(301, `${originalUrl}/${unix}`);
-//   }
-// });
-
 app.get('/api/:dateString?', function (req, res) {
   const { dateString } = req.params;
 
@@ -60,39 +45,6 @@ app.get('/api/:dateString?', function (req, res) {
     res.json({ unix: date.getTime(), utc: date.toUTCString() });
   }
 });
-
-// app.get('/api/:date_string', function (req, res) {
-//   let { date_string = '' } = req.params;
-
-//   if (date_string) {
-//     if (!date_string.includes('-')) {
-//       date_string *= 1;
-//     }
-//     const date = new Date(date_string).toUTCString();
-
-//     if (date == 'Invalid Date') {
-//       res.json({ error: 'Invalid Date' });
-//     }
-
-//     res.json({
-//       unix: Date.parse(date),
-//       utc: date,
-//     });
-//   } else {
-//     let current = new Date();
-//     let currentTime =
-//       current.getHours() +
-//       ':' +
-//       current.getMinutes() +
-//       ':' +
-//       current.getSeconds();
-
-//     res.json({
-//       unix: currentTime,
-//       utc: currentTime,
-//     });
-//   }
-// });
 
 // listen for requests :)
 
