@@ -38,7 +38,7 @@ app.get('/api/hello', function (req, res) {
 //   }
 // });
 
-app.get('/:date', function (req, res) {
+app.get('/api/:date', function (req, res) {
   // creating a date object
   var date = new Date();
   // if the given parameter is a number (timestamp)
@@ -60,7 +60,7 @@ app.get('/:date', function (req, res) {
     res.send(
       JSON.stringify({
         unix: date.getTime(),
-        natural: date.getTime(),
+        utc: date.getTime(),
       })
     );
 });
