@@ -26,7 +26,22 @@ app.get('/api/hello', function (req, res) {
 app.get('/api/:date', function (req, res) {
   let { date } = req.params;
 
-  if (!(date in req.params)) {
+  if (date) {
+    if (!date.includes('-')) {
+      date *= 1;
+    }
+
+    const sendDate = new Date(date).toUTCString();
+
+    if (sendDate == 'Invalid Date') {
+      res.json({ error: 'Invalid Date' });
+    }
+
+    res.json({
+      unix: Date.parse(sendDate),
+      utc: sendDate,
+    });
+  } else {
     let current = new Date();
     res.json({
       unix:
@@ -38,21 +53,6 @@ app.get('/api/:date', function (req, res) {
       utc: current,
     });
   }
-
-  if (!date.includes('-')) {
-    date *= 1;
-  }
-
-  const sendDate = new Date(date).toUTCString();
-
-  if (sendDate == 'Invalid Date') {
-    res.json({ error: 'Invalid Date' });
-  }
-
-  res.json({
-    unix: Date.parse(sendDate),
-    utc: sendDate,
-  });
 });
 
 // listen for requests :)
