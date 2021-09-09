@@ -23,15 +23,15 @@ app.get('/api/hello', function (req, res) {
   res.json({ greeting: 'hello API' });
 });
 
-app.get('/api/:date', function (req, res) {
-  let { date } = req.params;
+app.get('/api/:date_string', function (req, res) {
+  let { date_string = '' } = req.params;
 
-  if (date) {
-    if (!date.includes('-')) {
-      date *= 1;
+  if (date_string) {
+    if (!date_string.includes('-')) {
+      date_string *= 1;
     }
 
-    const sendDate = new Date(date).toUTCString();
+    const sendDate = new Date(date_string).toUTCString();
 
     if (sendDate == 'Invalid Date') {
       res.json({ error: 'Invalid Date' });
@@ -43,14 +43,16 @@ app.get('/api/:date', function (req, res) {
     });
   } else {
     let current = new Date();
+    let currentTime =
+      current.getHours() +
+      ':' +
+      current.getMinutes() +
+      ':' +
+      current.getSeconds();
+
     res.json({
-      unix:
-        current.getHours() +
-        ':' +
-        current.getMinutes() +
-        ':' +
-        current.getSeconds(),
-      utc: current,
+      unix: currentTime,
+      utc: currentTime,
     });
   }
 });
