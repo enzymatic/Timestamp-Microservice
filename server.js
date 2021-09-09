@@ -26,34 +26,34 @@ app.get('/api/hello', function (req, res) {
 app.get('/api/:date_string', function (req, res) {
   let { date_string = '' } = req.params;
 
-  if (date_string === '') {
-    let current = new Date();
-    let currentTime =
-      current.getHours() +
-      ':' +
-      current.getMinutes() +
-      ':' +
-      current.getSeconds();
+  if (date_string) {
+    if (!date_string.includes('-')) {
+      date_string *= 1;
+    }
+
+    const sendDate = new Date(date_string).toUTCString();
+
+    if (sendDate == 'Invalid Date') {
+      res.json({ error: 'Invalid Date' });
+    }
 
     res.json({
-      unix: currentTime,
-      utc: currentTime,
+      unix: Date.parse(sendDate),
+      utc: sendDate,
     });
   }
 
-  if (!date_string.includes('-')) {
-    date_string *= 1;
-  }
-
-  const sendDate = new Date(date_string).toUTCString();
-
-  if (sendDate == 'Invalid Date') {
-    res.json({ error: 'Invalid Date' });
-  }
+  let current = new Date();
+  let currentTime =
+    current.getHours() +
+    ':' +
+    current.getMinutes() +
+    ':' +
+    current.getSeconds();
 
   res.json({
-    unix: Date.parse(sendDate),
-    utc: sendDate,
+    unix: currentTime,
+    utc: currentTime,
   });
 });
 
