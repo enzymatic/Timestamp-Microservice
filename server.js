@@ -30,7 +30,6 @@ app.get('/api/:date_string', function (req, res) {
     if (!date_string.includes('-')) {
       date_string *= 1;
     }
-
     const sendDate = new Date(date_string).toUTCString();
 
     if (sendDate == 'Invalid Date') {
@@ -41,20 +40,20 @@ app.get('/api/:date_string', function (req, res) {
       unix: Date.parse(sendDate),
       utc: sendDate,
     });
+  } else {
+    let current = new Date();
+    let currentTime =
+      current.getHours() +
+      ':' +
+      current.getMinutes() +
+      ':' +
+      current.getSeconds();
+
+    res.json({
+      unix: currentTime,
+      utc: currentTime,
+    });
   }
-
-  let current = new Date();
-  let currentTime =
-    current.getHours() +
-    ':' +
-    current.getMinutes() +
-    ':' +
-    current.getSeconds();
-
-  res.json({
-    unix: currentTime,
-    utc: currentTime,
-  });
 });
 
 // listen for requests :)
