@@ -26,7 +26,7 @@ app.get('/api/hello', function (req, res) {
 app.get('/api/:date_string', function (req, res) {
   let { date_string = '' } = req.params;
 
-  if ((date_string = '')) {
+  if (date_string === '') {
     let current = new Date();
     let currentTime =
       current.getHours() +
