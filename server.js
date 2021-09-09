@@ -26,18 +26,18 @@ app.get('/api/hello', function (req, res) {
 app.get('/api/:date', function (req, res) {
   let { date } = req.params;
 
-  // if (!req.params.date) {
-  //   let current = new Date();
-  //   res.json({
-  //     unix:
-  //       current.getHours() +
-  //       ':' +
-  //       current.getMinutes() +
-  //       ':' +
-  //       current.getSeconds(),
-  //     utc: current,
-  //   });
-  // }
+  if (!(date in req.params)) {
+    let current = new Date();
+    res.json({
+      unix:
+        current.getHours() +
+        ':' +
+        current.getMinutes() +
+        ':' +
+        current.getSeconds(),
+      utc: current,
+    });
+  }
 
   if (!date.includes('-')) {
     date *= 1;
