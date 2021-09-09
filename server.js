@@ -42,18 +42,22 @@ app.get('/api/:date_string', function (req, res) {
   let { date_string = '' } = req.params;
 
   if (date_string) {
-    if (!date_string.includes('-')) {
-      date_string *= 1;
-    }
-    const sendDate = new Date(date_string).toUTCString();
+    const VALID = date_string * 1;
+    const DATE = Number.isNaN(VALID) ? getDate(date_string) : getDate(VALID);
+    console.log(DATE);
+    res.json(DATE);
+    // if (!date_string.includes('-')) {
+    //   date_string *= 1;
+    // }
+    // const sendDate = new Date(date_string).toUTCString();
 
-    if (sendDate == 'Invalid Date') {
-      res.json({ error: 'Invalid Date' });
-    }
+    // if (sendDate == 'Invalid Date') {
+    //   res.json({ error: 'Invalid Date' });
+    // }
 
     res.json({
-      unix: Date.parse(sendDate),
-      utc: sendDate,
+      unix: Date.parse(Date),
+      utc: DATE,
     });
   } else {
     let current = new Date();
