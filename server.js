@@ -38,38 +38,65 @@ app.get('/api/hello', function (req, res) {
 //   }
 // });
 
-app.get('/api/:date_string', function (req, res) {
-  let { date_string = '' } = req.params;
-
-  if (date_string) {
-    if (!date_string.includes('-')) {
-      date_string *= 1;
-    }
-    const date = new Date(date_string).toUTCString();
-
-    if (date == 'Invalid Date') {
-      res.json({ error: 'Invalid Date' });
-    }
-
-    res.json({
-      unix: Date.parse(date),
-      utc: date,
-    });
-  } else {
-    let current = new Date();
-    let currentTime =
-      current.getHours() +
-      ':' +
-      current.getMinutes() +
-      ':' +
-      current.getSeconds();
-
-    res.json({
-      unix: currentTime,
-      utc: currentTime,
-    });
+app.get('/:date', function (req, res) {
+  // creating a date object
+  var date = new Date();
+  // if the given parameter is a number (timestamp)
+  if (/^\d*$/.test(req.params.date)) {
+    date.setTime(req.params.date);
   }
+  // else we just create a new date parsing the string given
+  else {
+    date = new Date(req.params.date);
+  }
+
+  // giving headers for JSON
+  res.set({ 'Content-Type': 'application/json' });
+  // if the date is invalid
+  if (!date.getTime())
+    res.send(JSON.stringify({ error: 'Invalid date given' }));
+  // else, we send the object with two members (unix and natural)
+  else
+    res.send(
+      JSON.stringify({
+        unix: date.getTime(),
+        natural: date.getTime(),
+      })
+    );
 });
+
+// app.get('/api/:date_string', function (req, res) {
+//   let { date_string = '' } = req.params;
+
+//   if (date_string) {
+//     if (!date_string.includes('-')) {
+//       date_string *= 1;
+//     }
+//     const date = new Date(date_string).toUTCString();
+
+//     if (date == 'Invalid Date') {
+//       res.json({ error: 'Invalid Date' });
+//     }
+
+//     res.json({
+//       unix: Date.parse(date),
+//       utc: date,
+//     });
+//   } else {
+//     let current = new Date();
+//     let currentTime =
+//       current.getHours() +
+//       ':' +
+//       current.getMinutes() +
+//       ':' +
+//       current.getSeconds();
+
+//     res.json({
+//       unix: currentTime,
+//       utc: currentTime,
+//     });
+//   }
+// });
 
 // listen for requests :)
 
